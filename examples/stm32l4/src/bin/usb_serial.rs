@@ -48,8 +48,8 @@ async fn main(_spawner: Spawner) {
     let mut config = embassy_usb::Config::new(0xc0de, 0xcafe);
     config.max_packet_size_0 = 64;
     config.manufacturer = Some("Embassy");
-    config.product = Some("USB-serial example");
-    config.serial_number = Some("12345678");
+    config.product = Some("USB");
+    config.serial_number = Some("123");
 
     // Required for windows compatibility.
     // https://developer.nordicsemi.com/nRF_Connect_SDK/doc/1.9.1/kconfig/CONFIG_CDC_ACM_IAD.html#help
