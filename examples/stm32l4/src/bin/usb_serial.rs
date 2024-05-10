@@ -10,6 +10,7 @@ use embassy_stm32::{bind_interrupts, peripherals, usb, Config};
 use embassy_usb::class::cdc_acm::{CdcAcmClass, State};
 use embassy_usb::driver::EndpointError;
 use embassy_usb::Builder;
+use embassy_time::{Duration, Instant, Timer};
 use panic_probe as _;
 
 bind_interrupts!(struct Irqs {
@@ -126,9 +127,12 @@ impl From<EndpointError> for Disconnected {
 async fn echo<'d, T: Instance + 'd>(class: &mut CdcAcmClass<'d, Driver<'d, T>>) -> Result<(), Disconnected> {
     let mut buf = [0; 64];
     loop {
-        let n = class.read_packet(&mut buf).await?;
-        let data = &buf[..n];
-        info!("data: {:x}", data);
-        class.write_packet(data).await?;
+        // let n = class.read_packet(&mut buf).await?;
+        // let data = &buf[..n];
+        // info!("data: {:x}", data);
+        // class.write_packet(data).await?;
+        Timer::after(Duration::from_secs(1)).await;
+        let time = Instant::now();
+        info!("data: {:x}", time);
     }
 }
